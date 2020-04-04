@@ -1,6 +1,7 @@
 package com.journear.stfa;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,13 +9,16 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.DeviceViewHolder> {
 
-    ArrayList<String> deviceList;
-
-    public DeviceListAdapter(ArrayList<String> planetList, Context context) {
+    private ArrayList<NearbyDevices> deviceList;
+    private Context context;
+    public DeviceListAdapter(Context context, ArrayList<NearbyDevices> planetList) {
         this.deviceList = planetList;
     }
 
@@ -28,7 +32,10 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.De
     @Override
     public void onBindViewHolder(DeviceViewHolder holder, int position) {
         //holder.image.setImageResource(R.drawable.planetimage);
-        holder.text.setText(deviceList.get(position).toString());
+        NearbyDevices devices = deviceList.get(position);
+
+        holder.deviceName.setText(Build.MANUFACTURER);
+        holder.distance.setText("DANGER");
     }
 
     @Override
@@ -38,11 +45,13 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.De
 
     public static class DeviceViewHolder extends RecyclerView.ViewHolder{
 
-        protected TextView text;
+        protected TextView deviceName;
+        protected TextView distance;
 
         public DeviceViewHolder(View itemView) {
             super(itemView);
-            text= (TextView) itemView.findViewById(R.id.text_id);
+            deviceName = itemView.findViewById(R.id.deviceName);
+            distance = itemView.findViewById(R.id.distance);
         }
     }
 }

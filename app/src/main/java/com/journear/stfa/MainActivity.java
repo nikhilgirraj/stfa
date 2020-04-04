@@ -1,7 +1,6 @@
 package com.journear.stfa;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.bluetooth.BluetoothAdapter;
@@ -15,11 +14,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -69,38 +64,17 @@ public class MainActivity extends AppCompatActivity {
                 String deviceHardwareAddress = device.getAddress(); // MAC address
 
                 NearbyDevices nd = new NearbyDevices();
-
-                nd.setdeviceName(deviceName);
-                nd.setdistance("1 Meter");
-
-                final Intent intent1 = new Intent(MainActivity.this, devicesListActivity.class);
-                intent.putExtra("EXTRA", nd);
-
-
-                /*
-                                NearbyDevices nd = new NearbyDevices();
-                List<NearbyDevices> devicesList;
-
-                String source = sourceTextView.getText().toString().trim();
-                String Destination =  destinationTextView.getText().toString().trim();
-                String timeOfTravel = time.getText().toString().trim();
-
-                nd.setSource(source);
-                nd.setDestination(Destination);
-                nd.setTravelTime(timeOfTravel);
-
-                Snackbar.make(v, "Journey Created",Snackbar.LENGTH_SHORT)
-                        .show();
-
-                devicesList = new ArrayList<>();
-
-                devicesList.add(new NearbyDevices(source , Destination , timeOfTravel));
-
-                final Intent intent = new Intent(CreateJourneyActivity.this, JourneyViewActivity.class);
-                intent.putExtra("EXTRA", nd);
-                 */
-                Log.i("STFA", "Discovered:  " + deviceName);
                 int  rssi = intent.getShortExtra(BluetoothDevice.EXTRA_RSSI,Short.MIN_VALUE);
+                nd.setdeviceName(deviceName);
+                nd.setdistance(Integer.toString(rssi));
+
+                final Intent intent1 = new Intent(MainActivity.this, DevicesListActivity.class);
+                intent1.putExtra("EXTRA", nd);
+                startActivity(intent1);
+
+
+                Log.i("STFA", "Discovered:  " + deviceName);
+
                 Log.i("STFA",deviceName + "  RSSI: " + rssi + "dBm");
 //                Toast.makeText(getApplicationContext(),"  RSSI: " + rssi + "dBm", Toast.LENGTH_SHORT).show();
 //                adapter = new DeviceListAdapter(deviceList, getApplicationContext());

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class devicesListActivity extends AppCompatActivity {
+public class DevicesListActivity extends AppCompatActivity {
 
     private static final String TAG = "ListActivity";
     private RecyclerView recyclerView;
